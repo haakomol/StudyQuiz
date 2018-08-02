@@ -1,0 +1,88 @@
+<h2>Lag ny quiz</h2>
+
+<form class="make-quiz-form" #addQuizForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <mat-form-field class="quiz-name-input-field">
+    <input matInput placeholder="Tittel"
+    required maxlength="40"
+    [(ngModel)]="quizName" name="quiz-name" #name>
+    <mat-hint align="end">{{name.value.length}} / 40</mat-hint>
+  </mat-form-field>
+  
+  <mat-form-field class="full-width-field">
+    <textarea matInput placeholder="Beskrivelse"
+    required maxlength="500"
+    [(ngModel)]="quizDescription" name="description" #description
+    cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="6"></textarea>
+    <mat-hint align="end">{{description.value.length}} / 500</mat-hint>
+  </mat-form-field>
+
+  <div *ngFor="let question of questions; let i = index; trackBy: trackByIndex">
+  
+    <h4>Spørsmål {{(i + 1)}}</h4>
+
+      <mat-form-field class="quiz-input-field">
+        <input matInput placeholder="Spørsmål"
+        required maxlength="200"
+        [(ngModel)]="questions[i].question" name="question-{{i}}">
+      </mat-form-field>
+
+      <mat-form-field class="quiz-input-field">
+        <input matInput placeholder="Riktig svaralternativ"
+        required maxlength="200"
+        [(ngModel)]="question.correctAnswer" name="correct-answer-{{i}}">
+      </mat-form-field>
+
+      <mat-form-field class="quiz-input-field">
+        <input matInput placeholder="Galt svaralternativ"
+        required maxlength="200"
+        [(ngModel)]="questions[i].incorrectAnswers[0]" name="incorrectAnswer-{{i}}-{{0}}">
+      </mat-form-field>
+
+      <div class="add-remove-incorrect-answers-buttons">
+        <button type="button" mat-button (click)="addIncorrectAnswerForQuestion(i)"
+                [disabled]="isMaxIncorrectAnswersForQuestion(i)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button type="button" mat-button (click)="removeIncorrectAnswerForQuestion(i)"
+                [disabled]="isMinIncorrectAnswersForQuestion(i)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
+
+      <mat-form-field *ngFor="let incorrectAnswer of question.incorrectAnswers.slice(1); let j = index; trackBy: trackByIndex"
+                      class="quiz-input-field">
+        <input matInput placeholder="Galt svaralternativ"
+        required maxlength="200"
+        [(ngModel)]="questions[i].incorrectAnswers[j+1]" name="incorrectAnswer-{{i}}-{{j+1}}">
+      </mat-form-field>
+
+      <mat-form-field class="full-width-field">
+        <textarea matInput placeholder="Forklaring"
+        maxlength="500"
+        cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="6"
+        [(ngModel)]="question.explanation" name="explanation-{{i}}"></textarea>
+      </mat-form-field>
+
+  </div>
+
+  <div class="add-remove-questions-buttons">
+    <button type="button" mat-button (click)="addQuestion()" [disabled]="isMaxQuestions()">
+      <mat-icon>add</mat-icon> Legg til spørsmål</button>
+    <span class="button-separator"></span>
+    <button type="button" mat-button (click)="removeQuestion()" [disabled]="isMinQuestions()">
+      <mat-icon>remove</mat-icon> Fjern spørsmål</button>
+  </div>
+  
+  <div class="publish-cancel-buttons">
+    <button type="submit" mat-raised-button color="accent"
+            [disabled]="!addQuizForm.form.valid || isSubmitInProgress">Lagre og publiser</button>
+    <span class="button-separator"></span>
+    <button type="button" mat-button (click)="cancel()">Avbryt</button>
+    <!-- <span class="button-separator"></span>
+    <button type="button" mat-button (click)="debug()">Debug</button> -->
+  </div>
+
+</form>
+
+<!-- <button mat-button (click)="showSuccessDialogAndLeave()">Dialog</button> -->

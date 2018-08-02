@@ -1,0 +1,38 @@
+.make-quiz-form {
+  width: 100%;
+}
+
+.full-width-field {
+  width: 100%;
+}
+
+.quiz-name-input-field {
+  width: 400px;
+}
+
+.quiz-input-field {
+  width: 500px;
+}
+
+.add-remove-questions-buttons {
+  margin: 16px auto;
+  width: max-content;
+}
+
+.add-remove-incorrect-answers-buttons {
+  display: inline-block;
+  margin-left: 10px;
+  /* position: relative;
+  height: 0;
+  left: 520px;
+  top: -65px; */
+}
+
+.add-remove-incorrect-answers-buttons button {
+  min-width: initial;
+  padding: 0 10px;
+}
+
+.publish-cancel-buttons {
+  margin: 30px 0 20px 0;
+}

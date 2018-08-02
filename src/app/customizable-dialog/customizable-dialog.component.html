@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{dialogData.title}}</h2>
+<mat-dialog-content>{{dialogData.contentText}}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" (click)="confirm()">{{dialogData.buttonConfirmText}}</button>
+  <button *ngIf="dialogData.buttonCancelText" mat-button mat-dialog-close>{{dialogData.buttonCancelText}}</button>
+</mat-dialog-actions>

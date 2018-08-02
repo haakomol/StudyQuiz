@@ -1,0 +1,58 @@
+<div *ngIf="quizPlayer; else loading">
+  <h2 class="player-quiz-name">{{quizPlayer.quizName}}</h2>
+  
+  <div *ngIf="quizPlayer.state == StateEnum.Intro" class="player-intro">
+    
+    <div class="player-main-content">
+      <div class="info-grid">
+        <span class="label">Beskrivelse:</span>
+        <span>{{quizPlayer.quizDescription}}</span>
+        <span class="label">Antall spørsmål:</span>
+        <span>{{quizPlayer.nExercises}}</span>
+      </div>
+    </div>
+    
+    <button (click)="start()" mat-raised-button color="accent">Start</button>
+    <span class="button-separator"></span>
+    <a (click)="goBack()" mat-button>Tilbake</a>
+  </div>
+  
+  <div *ngIf="quizPlayer.state == StateEnum.Playing">
+    <h3 class="player-question">{{ quizPlayer.question }}</h3>
+  
+    <div class="player-main-content">
+      <mat-nav-list class="alternatives-list">
+        <a mat-list-item
+           *ngFor="let alternative of quizPlayer.alternatives; let i = index"
+           (click)="answer(i + 1)"
+           [ngClass]="alternativesClassesAfterAnswer[i]">
+           {{ alternative }}<mat-icon class="icon-correct-alternative">done</mat-icon>
+        </a>
+      </mat-nav-list>
+  
+      <p class="player-explanation" *ngIf="quizPlayer.answerGiven && quizPlayer.explanation">{{quizPlayer.explanation}}</p>
+    </div>
+  
+    <button *ngIf="quizPlayer.activeExerciseNo < quizPlayer.nExercises; else summaryButton" (click)="nextExercise()" mat-raised-button
+      color="accent" [disabled]="!quizPlayer.answerGiven">Neste</button>
+    <ng-template #summaryButton>
+      <button (click)="summary()" mat-raised-button color="accent" [disabled]="!quizPlayer.answerGiven">Oppsummering</button>
+    </ng-template>
+    <span class="button-separator"></span>
+    <button (click)="quitQuiz()" mat-button>Avslutt quiz</button>
+  </div>
+  
+  <div *ngIf="quizPlayer.state == StateEnum.Summary">
+    <h3>Oppsummering</h3>
+  
+    <div class="player-main-content">
+      <span>Du svarte riktig på {{quizPlayer.nCorrectAnswers}} av {{quizPlayer.nExercises}} spørsmål.</span>
+    </div>
+  
+    <a routerLink="/" mat-raised-button color="accent">Tilbake</a>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loading-display></app-loading-display>
+</ng-template>
