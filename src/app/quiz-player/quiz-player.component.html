@@ -14,7 +14,7 @@
     
     <button (click)="start()" mat-raised-button color="accent">Start</button>
     <span class="button-separator"></span>
-    <a (click)="goBack()" mat-button>Tilbake</a>
+    <a routerLink="/" mat-button>Tilbake</a>
   </div>
   
   <div *ngIf="quizPlayer.state == StateEnum.Playing">
