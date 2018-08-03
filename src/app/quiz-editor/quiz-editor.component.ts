@@ -88,7 +88,6 @@ export class QuizEditorComponent implements OnInit {
     quizData['name'] = this.quizName;
     quizData['description'] = this.quizDescription;
     quizData['exercises'] = this.questions;
-    quizData['id'] = 10;
 
     console.log('quizData:');
     console.log(quizData);
