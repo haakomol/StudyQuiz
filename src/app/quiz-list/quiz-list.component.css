@@ -1,5 +1,5 @@
 #add-button {
-  position: absolute;
-  right: 16px;
+  position: fixed;
+  left: calc(50vw + 228px);
   bottom: 16px;
 }

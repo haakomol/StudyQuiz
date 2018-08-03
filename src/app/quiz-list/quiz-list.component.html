@@ -2,11 +2,12 @@
 
 <mat-nav-list id="quiz-list" *ngIf="quizzesList; else loading">
   <a mat-list-item *ngFor="let quizEntry of quizzesList" [routerLink]="['play', quizEntry.id]"> {{ quizEntry.name }} </a>
-  <button id="add-button" mat-fab color="accent" routerLink="/edit/new">
-    <mat-icon>add</mat-icon>
-  </button>
 </mat-nav-list>
 
 <ng-template #loading>
   <app-loading-display></app-loading-display>
 </ng-template>
+
+<button id="add-button" mat-fab color="accent" routerLink="/edit/new">
+  <mat-icon>add</mat-icon>
+</button>
